@@ -9,6 +9,10 @@ import AdminDashboard from './pages/AdminDashboard';
 import AuditLogs from './pages/AuditLogs';
 import Reports from './pages/Reports';
 import Reconciliation from './pages/Reconciliation';
+import Notices from './pages/Notices';
+import Profile from './pages/Profile';
+import Settings from './pages/Settings';
+import EMICalculator from './pages/EMICalculator';
 
 function Router() {
   const { user, loading } = useAuth();
@@ -54,11 +58,15 @@ function Router() {
     case '/reconciliation':
       return <Reconciliation />;
     case '/profile':
-      return <Dashboard />;
-    case '/chart':
-      return <Dashboard />;
+      return <Profile />;
     case '/notices':
-      return <Dashboard />;
+      return <Notices />;
+    case '/settings':
+      return <Settings />;
+    case '/emi-calculator':
+      return <EMICalculator />;
+    case '/chart':
+      return <EMICalculator />;
     default:
       return <Dashboard />;
   }

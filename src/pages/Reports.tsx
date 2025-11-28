@@ -45,7 +45,7 @@ export default function Reports() {
       const { data, error } = await query;
       if (error) throw error;
 
-      const formattedData = data.map((loan: any) => ({
+      const formattedData = (data || []).map((loan: any) => ({
         loan_id: loan.id,
         user_name: loan.users.full_name,
         user_email: loan.users.email,
@@ -95,7 +95,7 @@ export default function Reports() {
       const { data, error } = await query;
       if (error) throw error;
 
-      const formattedData = data.map((payment: any) => ({
+      const formattedData = (data || []).map((payment: any) => ({
         payment_id: payment.id,
         user_name: payment.users.full_name,
         user_email: payment.users.email,
@@ -154,7 +154,7 @@ export default function Reports() {
           total_loans: loansData?.length || 0,
           total_payments: paymentsData?.length || 0,
         },
-        ...loansData.map((loan: any) => ({
+        ...(loansData || []).map((loan: any) => ({
           section: 'LOAN',
           loan_id: loan.id,
           amount: loan.amount,
@@ -163,7 +163,7 @@ export default function Reports() {
           requested: loan.requested_at,
           due_date: loan.due_date || '',
         })),
-        ...paymentsData.map((payment: any) => ({
+        ...(paymentsData || []).map((payment: any) => ({
           section: 'PAYMENT',
           payment_id: payment.id,
           loan_id: payment.loan_id,
@@ -225,7 +225,7 @@ export default function Reports() {
           total_loan_amount: loansData?.reduce((sum: number, l: any) => sum + l.amount, 0) || 0,
           total_payment_amount: paymentsData?.reduce((sum: number, p: any) => sum + p.amount, 0) || 0,
         },
-        ...loansData.map((loan: any) => ({
+        ...(loansData || []).map((loan: any) => ({
           section: 'LOAN',
           loan_id: loan.id,
           user_name: loan.users.full_name,
@@ -235,7 +235,7 @@ export default function Reports() {
           status: loan.status,
           requested: loan.requested_at,
         })),
-        ...paymentsData.map((payment: any) => ({
+        ...(paymentsData || []).map((payment: any) => ({
           section: 'PAYMENT',
           payment_id: payment.id,
           user_name: payment.users.full_name,

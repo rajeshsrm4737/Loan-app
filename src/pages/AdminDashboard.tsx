@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { supabase } from '../lib/supabase';
 import { logAudit } from '../lib/auditLog';
+import { sendNotificationFromTemplate } from '../lib/notifications';
 import Layout from '../components/Layout';
 import { CheckCircle, XCircle, Upload } from 'lucide-react';
 
@@ -122,6 +123,13 @@ function MarkPaidModal({ loan, onClose, onSuccess }: MarkPaidModalProps) {
         oldValue: { outstanding_amount: loan.outstanding_amount },
         newValue: { outstanding_amount: newOutstanding, payment_amount: paymentAmount },
         metadata: { loan_id: loan.id, transaction_id: transactionId, has_receipt: !!receiptUrl },
+      });
+
+      await sendNotificationFromTemplate(loan.users.id, 'payment_confirmed', {
+        user_name: loan.users.full_name,
+        amount: paymentAmount.toFixed(2),
+        transaction_id: transactionId,
+        remaining_balance: newOutstanding.toFixed(2),
       });
 
       onSuccess();

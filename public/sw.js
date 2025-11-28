@@ -1,4 +1,4 @@
-const CACHE_NAME = 'lendtrack-v1';
+const CACHE_NAME = 'lendtrack-v2';
 const urlsToCache = [
   '/',
   '/index.html',
@@ -13,6 +13,7 @@ self.addEventListener('install', (event) => {
         return cache.addAll(urlsToCache);
       })
   );
+  self.skipWaiting();
 });
 
 self.addEventListener('fetch', (event) => {
@@ -54,5 +55,62 @@ self.addEventListener('activate', (event) => {
         })
       );
     })
+  );
+  return self.clients.claim();
+});
+
+self.addEventListener('push', (event) => {
+  const options = {
+    body: 'You have a new notification',
+    icon: '/icon-192.png',
+    badge: '/icon-192.png',
+    vibrate: [200, 100, 200],
+    data: {
+      dateOfArrival: Date.now(),
+      primaryKey: 1
+    },
+    actions: [
+      {
+        action: 'explore',
+        title: 'View'
+      },
+      {
+        action: 'close',
+        title: 'Close'
+      }
+    ]
+  };
+
+  if (event.data) {
+    const data = event.data.json();
+    options.body = data.body || options.body;
+    if (data.title) {
+      event.waitUntil(
+        self.registration.showNotification(data.title, options)
+      );
+    }
+  } else {
+    event.waitUntil(
+      self.registration.showNotification('LendTrack', options)
+    );
+  }
+});
+
+self.addEventListener('notificationclick', (event) => {
+  event.notification.close();
+
+  if (event.action === 'explore') {
+    event.waitUntil(
+      clients.openWindow('/')
+    );
+  }
+});
+
+self.addEventListener('pushsubscriptionchange', (event) => {
+  event.waitUntil(
+    self.registration.pushManager.subscribe(event.oldSubscription.options)
+      .then((subscription) => {
+        console.log('Push subscription renewed:', subscription);
+      })
   );
 });

@@ -1,4 +1,4 @@
-import { X, LayoutDashboard, History, BarChart3, Bell, HelpCircle, Shield, User, LogOut, FileText, ScrollText, GitMerge } from 'lucide-react';
+import { X, LayoutDashboard, History, Calculator, Bell, HelpCircle, Shield, User, LogOut, FileText, ScrollText, GitMerge, Settings as SettingsIcon } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 
 interface SidebarProps {
@@ -23,7 +23,7 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
     { icon: User, label: 'Profile', path: '/profile' },
     { icon: LayoutDashboard, label: 'Dashboard', path: '/dashboard' },
     { icon: History, label: 'History', path: '/history' },
-    { icon: BarChart3, label: 'Monthly Chart', path: '/chart' },
+    { icon: Calculator, label: 'EMI Calculator', path: '/emi-calculator' },
     { icon: Bell, label: 'Notices', path: '/notices' },
     { icon: HelpCircle, label: 'Help/Contact', path: '/help' },
   ];
@@ -33,6 +33,7 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
     { icon: ScrollText, label: 'Audit Logs', path: '/audit-logs' },
     { icon: FileText, label: 'Reports & Export', path: '/reports' },
     { icon: GitMerge, label: 'Reconciliation', path: '/reconciliation' },
+    { icon: SettingsIcon, label: 'Settings', path: '/settings' },
   ];
 
   return (

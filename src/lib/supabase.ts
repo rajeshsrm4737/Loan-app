@@ -98,6 +98,66 @@ export type Database = {
           created_at: string;
         };
       };
+      notifications: {
+        Row: {
+          id: string;
+          user_id: string;
+          type: string;
+          title: string;
+          message: string;
+          read: boolean;
+          metadata: any;
+          sent_at: string | null;
+          created_at: string;
+        };
+      };
+      notification_templates: {
+        Row: {
+          id: string;
+          type: string;
+          subject: string;
+          email_body: string;
+          push_body: string;
+          in_app_body: string;
+          variables: any;
+          created_at: string;
+          updated_at: string;
+        };
+      };
+      push_subscriptions: {
+        Row: {
+          id: string;
+          user_id: string;
+          endpoint: string;
+          p256dh_key: string;
+          auth_key: string;
+          created_at: string;
+        };
+      };
+      app_settings: {
+        Row: {
+          id: string;
+          key: string;
+          value: any;
+          description: string;
+          updated_by: string | null;
+          updated_at: string;
+        };
+      };
+      email_queue: {
+        Row: {
+          id: string;
+          to_email: string;
+          subject: string;
+          body: string;
+          status: string;
+          attempts: number;
+          last_error: string | null;
+          metadata: any;
+          created_at: string;
+          sent_at: string | null;
+        };
+      };
     };
   };
 };

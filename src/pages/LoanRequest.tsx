@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { supabase } from '../lib/supabase';
+import { createNotification } from '../lib/notifications';
 import Layout from '../components/Layout';
 
 export default function LoanRequest() {
@@ -39,6 +40,14 @@ export default function LoanRequest() {
           message: `Loan request for $${loanAmount}: ${purpose}`,
         });
       }
+
+      await createNotification({
+        userId: user!.id,
+        type: 'general',
+        title: 'Loan Request Submitted',
+        message: `Your loan request for $${loanAmount.toFixed(2)} has been submitted and is pending review.`,
+        metadata: { amount: loanAmount },
+      });
 
       setSuccess(true);
       setAmount('');
