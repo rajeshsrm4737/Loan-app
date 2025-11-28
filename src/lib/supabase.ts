@@ -71,6 +71,7 @@ export type Database = {
           processed_by: string | null;
           reversal_reason: string | null;
           reversed_at: string | null;
+          receipt_url: string | null;
           created_at: string;
         };
       };
@@ -80,6 +81,20 @@ export type Database = {
           user_id: string;
           loan_id: string | null;
           message: string;
+          created_at: string;
+        };
+      };
+      audit_logs: {
+        Row: {
+          id: string;
+          actor_id: string | null;
+          action_type: string;
+          target_id: string | null;
+          target_type: string | null;
+          old_value: any;
+          new_value: any;
+          reason: string | null;
+          metadata: any;
           created_at: string;
         };
       };

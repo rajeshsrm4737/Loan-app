@@ -6,6 +6,9 @@ import History from './pages/History';
 import LoanRequest from './pages/LoanRequest';
 import Help from './pages/Help';
 import AdminDashboard from './pages/AdminDashboard';
+import AuditLogs from './pages/AuditLogs';
+import Reports from './pages/Reports';
+import Reconciliation from './pages/Reconciliation';
 
 function Router() {
   const { user, loading } = useAuth();
@@ -44,6 +47,12 @@ function Router() {
       return <Help />;
     case '/admin':
       return <AdminDashboard />;
+    case '/audit-logs':
+      return <AuditLogs />;
+    case '/reports':
+      return <Reports />;
+    case '/reconciliation':
+      return <Reconciliation />;
     case '/profile':
       return <Dashboard />;
     case '/chart':
